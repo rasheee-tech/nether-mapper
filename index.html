@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nether Mapper</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #ff3c00;
+    }
+
+    .container {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background: #ff3c00;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      background: #333;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .mode-toggle {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    .mode-toggle label {
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Nether Mapper</h1>
+  <div class="container">
+    <div class="mode-toggle">
+      <label><input type="radio" name="mode" value="toOverworld" checked> Nether → Overworld</label>
+      <label><input type="radio" name="mode" value="toNether"> Overworld → Nether</label>
+    </div>
+
+    <label for="x">Coordenada X:</label>
+    <input type="number" id="x">
+
+    <label for="y">Coordenada Y:</label>
+    <input type="number" id="y">
+
+    <label for="z">Coordenada Z:</label>
+    <input type="number" id="z">
+
+    <button onclick="convertCoords()">Convertir</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <div class="footer">
+    Hecho por Rashé 🧠 | Proyecto: Tech Founder
+  </div>
+
+  <script>
+    function convertCoords() {
+      const x = parseFloat(document.getElementById('x').value);
+      const y = parseFloat(document.getElementById('y').value);
+      const z = parseFloat(document.getElementById('z').value);
+      const mode = document.querySelector('input[name="mode"]:checked').value;
+
+      if (isNaN(x) || isNaN(y) || isNaN(z)) {
+        document.getElementById('result').innerHTML = '⚠️ Por favor ingresa números válidos.';
+        return;
+      }
+
+      let newX, newZ;
+
+      if (mode === 'toOverworld') {
+        newX = x * 8;
+        newZ = z * 8;
+        document.getElementById('result').innerHTML =
+          `<strong>Coordenadas en Overworld:</strong><br>X: ${newX.toFixed(2)}<br>Y: ${y}<br>Z: ${newZ.toFixed(2)}`;
+      } else {
+        newX = x / 8;
+        newZ = z / 8;
+        document.getElementById('result').innerHTML =
+          `<strong>Coordenadas en Nether:</strong><br>X: ${newX.toFixed(2)}<br>Y: ${y}<br>Z: ${newZ.toFixed(2)}`;
+      }
+    }
+  </script>
+
+</body>
+</html>
